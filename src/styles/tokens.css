@@ -1,0 +1,125 @@
+/**
+ * DevNote Design System Tokens
+ * Technical, mature, restrained developer color palette
+ */
+
+:root {
+  /* Common System Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Source Code Pro", Menlo, Monaco, Consolas, monospace;
+
+  /* Font Sizes */
+  --font-size-2xs: 11px;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-md: 15px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 22px;
+  --font-size-3xl: 28px;
+
+  /* Spacing Scale */
+  --space-2xs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+
+  /* Structural Radii (Subtle, non-bubbly) */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* Transitions */
+  --transition-fast: 120ms ease;
+  --transition-normal: 180ms ease;
+
+  /* Component Heights */
+  --navbar-height: 44px;
+  --tabs-height: 36px;
+  --statusbar-height: 26px;
+  --sidebar-width: 260px;
+}
+
+/* ==========================================================================
+   Dark Theme (Default Developer IDE Palette)
+   ========================================================================== */
+:root[data-theme="dark"], :root {
+  --bg-app: #0d1117;
+  --bg-surface: #161b22;
+  --bg-surface-hover: #1f242c;
+  --bg-surface-active: #282e38;
+  --bg-elevated: #1c2128;
+  --bg-input: #0d1117;
+  --bg-code-block: #10141b;
+  --bg-inline-code: #21262d;
+
+  --border-subtle: #21262d;
+  --border-default: #30363d;
+  --border-active: #58a6ff;
+
+  --text-main: #e6edf3;
+  --text-muted: #8b949e;
+  --text-subtle: #6e7681;
+  --text-inverse: #0d1117;
+
+  /* Restrained Accent - Clean Engineering Emerald */
+  --accent-primary: #2ea043;
+  --accent-primary-hover: #3fb950;
+  --accent-subtle: rgba(46, 160, 67, 0.15);
+  --accent-contrast: #ffffff;
+  --accent-focus-ring: rgba(46, 160, 67, 0.4);
+
+  /* Semantic Tones */
+  --color-danger: #f85149;
+  --color-danger-subtle: rgba(248, 81, 73, 0.15);
+  --color-warning: #d29922;
+  --color-success: #3fb950;
+  --color-info: #58a6ff;
+
+  --shadow-overlay: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Light Theme (Clean Professional Technical Docs Palette)
+   ========================================================================== */
+:root[data-theme="light"] {
+  --bg-app: #f6f8fa;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f3f4f6;
+  --bg-surface-active: #e5e7eb;
+  --bg-elevated: #ffffff;
+  --bg-input: #ffffff;
+  --bg-code-block: #f6f8fa;
+  --bg-inline-code: #eaedf1;
+
+  --border-subtle: #e5e7eb;
+  --border-default: #d0d7de;
+  --border-active: #0969da;
+
+  --text-main: #1f2328;
+  --text-muted: #656d76;
+  --text-subtle: #8c959f;
+  --text-inverse: #ffffff;
+
+  /* Restrained Accent */
+  --accent-primary: #1a7f37;
+  --accent-primary-hover: #1f883d;
+  --accent-subtle: rgba(26, 127, 55, 0.12);
+  --accent-contrast: #ffffff;
+
+  /* Semantic Tones */
+  --color-danger: #cf222e;
+  --color-danger-subtle: rgba(207, 34, 46, 0.12);
+  --color-warning: #9a6700;
+  --color-success: #1a7f37;
+  --color-info: #0969da;
+
+  --shadow-overlay: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
