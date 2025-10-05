@@ -1,0 +1,20 @@
+{
+  "name": "devnote",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Professional developer documentation workspace with local IndexedDB persistence",
+  "keywords": ["documentation", "developer-tools", "markdown", "indexeddb", "workspace"],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "marked": "^15.0.7",
+    "prismjs": "^1.29.0"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  }
+}
