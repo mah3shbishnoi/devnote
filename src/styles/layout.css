@@ -1,0 +1,117 @@
+/**
+ * Main Application Grid & Layout Styles
+ */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-app);
+}
+
+/* Top Navigation Bar */
+.app-navbar {
+  height: var(--navbar-height);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  z-index: 10;
+}
+
+/* Central Workspace Container (Sidebar + Content) */
+.app-main {
+  display: flex;
+  flex: 1;
+  min-height: 0; /* Important for scrollable flex children */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sidebar */
+.app-sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  border-right: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  transition: width var(--transition-normal), margin-left var(--transition-normal);
+  z-index: 5;
+}
+
+.app-sidebar.sidebar-collapsed {
+  margin-left: calc(-1 * var(--sidebar-width));
+}
+
+/* Document Workspace Area */
+.app-workspace {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-app);
+  overflow: hidden;
+}
+
+/* Tabs Bar */
+.workspace-tabs {
+  height: var(--tabs-height);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Panes Container */
+.workspace-panes {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Editor Pane & Preview Pane */
+.pane-editor {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  overflow: hidden;
+}
+
+.pane-preview {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  overflow: hidden;
+}
+
+/* View Mode Toggles */
+.workspace-panes[data-view="editor"] .pane-preview {
+  display: none;
+}
+.workspace-panes[data-view="editor"] .pane-editor {
+  border-right: none;
+}
+
+.workspace-panes[data-view="preview"] .pane-editor {
+  display: none;
+}
+
+/* Bottom Status Bar */
+.app-statusbar {
+  height: var(--statusbar-height);
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  z-index: 10;
+}
