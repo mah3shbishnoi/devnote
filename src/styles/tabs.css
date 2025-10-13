@@ -1,0 +1,109 @@
+/**
+ * Document Tabs Bar Styles
+ */
+
+.workspace-tabs {
+  padding-left: var(--space-xs);
+  user-select: none;
+}
+
+.tabs-list {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Hide scrollbar */
+}
+
+.tabs-list::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  padding: 0 var(--space-sm);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  background-color: transparent;
+  border-right: 1px solid var(--border-subtle);
+  border-top: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  max-width: 200px;
+  position: relative;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.tab-item:hover {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-main);
+}
+
+.tab-item-active {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  border-top-color: var(--accent-primary);
+  font-weight: 500;
+}
+
+.tab-icon {
+  display: flex;
+  align-items: center;
+  color: var(--text-subtle);
+}
+
+.tab-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-dirty-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-warning);
+  display: none;
+  flex-shrink: 0;
+}
+
+.tab-dirty-indicator.is-dirty {
+  display: block;
+}
+
+.tab-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-xs);
+  color: var(--text-subtle);
+  opacity: 0.7;
+}
+
+.tab-close-btn:hover {
+  opacity: 1;
+  background-color: var(--bg-surface-active);
+  color: var(--text-main);
+}
+
+.tab-new-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: var(--space-xs);
+  color: var(--text-subtle);
+  border-radius: var(--radius-xs);
+}
+
+.tab-new-btn:hover {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-main);
+}
