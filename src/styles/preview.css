@@ -1,0 +1,325 @@
+/**
+ * Markdown Documentation Preview Styles & Prism Syntax Theme
+ */
+
+.pane-preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-surface);
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 38px;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  user-select: none;
+}
+
+.preview-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.preview-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background-color: var(--accent-subtle);
+  color: var(--accent-primary);
+}
+
+.preview-doc-title {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Preview Body */
+.preview-pane-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px 36px;
+  background-color: var(--bg-surface);
+}
+
+/* Rendered Markdown Typography */
+.markdown-rendered {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-main);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6 {
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.markdown-rendered h1:first-child {
+  margin-top: 0;
+}
+
+.markdown-rendered h1 {
+  font-size: 1.85em;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.3em;
+}
+
+.markdown-rendered h2 {
+  font-size: 1.45em;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.25em;
+}
+
+.markdown-rendered h3 {
+  font-size: 1.2em;
+}
+
+.markdown-rendered p {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+.markdown-rendered ul,
+.markdown-rendered ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.8em;
+  padding-left: 1.6em;
+}
+
+.markdown-rendered li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+/* Blockquotes */
+.markdown-rendered blockquote {
+  margin: 1.2em 0;
+  padding: 0.6em 1em;
+  color: var(--text-muted);
+  background-color: var(--bg-app);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+
+.markdown-rendered blockquote p {
+  margin: 0;
+}
+
+/* Inline Code */
+.markdown-rendered :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  background-color: var(--bg-inline-code);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Code Blocks */
+.code-block-wrapper {
+  margin: 1.2em 0;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-code-block);
+  overflow: hidden;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  user-select: none;
+}
+
+.code-lang-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  letter-spacing: 0.05em;
+}
+
+.code-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+}
+
+.code-copy-btn:hover {
+  color: var(--text-main);
+  border-color: var(--border-default);
+}
+
+.code-copy-btn.copy-success {
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.code-block-wrapper pre {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.55;
+  background: transparent !important;
+}
+
+/* Markdown Tables */
+.table-container {
+  overflow-x: auto;
+  margin: 1.2em 0;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+}
+
+.markdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+
+.markdown-table th,
+.markdown-table td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.markdown-table th {
+  background-color: var(--bg-app);
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.markdown-table tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-table tr:hover td {
+  background-color: var(--bg-surface-hover);
+}
+
+/* Task Lists */
+.task-list-item {
+  list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-left: -1.6em;
+  padding: 2px 0;
+}
+
+.task-checkbox {
+  margin-top: 4px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}
+
+/* Horizontal Rules */
+.markdown-rendered hr {
+  margin: 2em 0;
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ==========================================================================
+   Prism.js Syntax Theme (Engineered Dark & Light)
+   ========================================================================== */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #7d8590;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #8b949e;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #79c0ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a5d6ff;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #d2a8ff;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #ff7b72;
+}
+
+.token.function,
+.token.class-name {
+  color: #d2a8ff;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #ffa657;
+}
+
+/* Light Theme Syntax Adjustments */
+:root[data-theme="light"] .token.comment { color: #6e7781; }
+:root[data-theme="light"] .token.punctuation { color: #57606a; }
+:root[data-theme="light"] .token.property,
+:root[data-theme="light"] .token.tag,
+:root[data-theme="light"] .token.boolean,
+:root[data-theme="light"] .token.number { color: #0550ae; }
+:root[data-theme="light"] .token.string { color: #0a3069; }
+:root[data-theme="light"] .token.keyword { color: #cf222e; }
+:root[data-theme="light"] .token.function { color: #8250df; }
+:root[data-theme="light"] .token.operator { color: #24292f; }
