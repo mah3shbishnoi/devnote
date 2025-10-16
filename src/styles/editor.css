@@ -1,0 +1,195 @@
+/**
+ * Markdown Source Editor & Gutter Styles
+ */
+
+.pane-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-surface);
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 38px;
+  padding: 0 var(--space-sm);
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  user-select: none;
+}
+
+.editor-title-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+  max-width: 320px;
+}
+
+.editor-doc-icon {
+  display: flex;
+  align-items: center;
+  color: var(--text-subtle);
+}
+
+.editor-title-input {
+  border: 1px solid transparent !important;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: var(--font-size-xs) !important;
+  color: var(--text-main) !important;
+  padding: 2px 6px !important;
+  width: 100%;
+}
+
+.editor-title-input:hover {
+  border-color: var(--border-subtle) !important;
+  background-color: var(--bg-surface-hover) !important;
+}
+
+.editor-title-input:focus {
+  border-color: var(--border-active) !important;
+  background-color: var(--bg-input) !important;
+}
+
+/* Toolbar */
+.editor-toolbar-container {
+  display: flex;
+  align-items: center;
+}
+
+.editor-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+}
+
+.toolbar-btn:hover {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-main);
+}
+
+.toolbar-btn-sub {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 16px;
+  background-color: var(--border-subtle);
+  margin: 0 4px;
+}
+
+/* Editor Pane Body */
+.editor-pane-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background-color: var(--bg-app);
+}
+
+/* Line Numbers Gutter */
+.editor-gutter {
+  width: 48px;
+  flex-shrink: 0;
+  background-color: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  padding: 12px 6px 12px 0;
+  text-align: right;
+  overflow: hidden;
+  user-select: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 22px;
+  color: var(--text-subtle);
+}
+
+.gutter-line {
+  height: 22px;
+}
+
+/* Editor Textarea */
+.editor-textarea {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 12px var(--space-md);
+  margin: 0;
+  border: none !important;
+  background-color: var(--bg-app) !important;
+  color: var(--text-main) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 13px !important;
+  line-height: 22px !important;
+  tab-size: 2;
+  outline: none !important;
+  resize: none;
+  overflow-y: auto;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Empty State */
+.editor-empty-state, .preview-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-app);
+}
+
+.empty-state-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 320px;
+  padding: var(--space-xl);
+}
+
+.empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-subtle);
+  margin-bottom: var(--space-md);
+}
+
+.empty-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+  color: var(--text-main);
+}
+
+.empty-desc {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
+}
