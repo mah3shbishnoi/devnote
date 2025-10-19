@@ -1,0 +1,46 @@
+/**
+ * Status Bar Styles
+ */
+
+.app-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-md);
+  user-select: none;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.statusbar-left,
+.statusbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.statusbar-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.statusbar-engine {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.status-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  display: inline-block;
+}
+
+.statusbar-separator {
+  width: 1px;
+  height: 12px;
+  background-color: var(--border-subtle);
+}
