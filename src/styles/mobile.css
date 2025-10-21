@@ -1,0 +1,119 @@
+/**
+ * Responsive Design & Mobile Fallback Styles
+ * Desktop-first with clean fallback on mobile
+ */
+
+/* Mobile Fallback Banner */
+.mobile-fallback-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  padding: 8px 12px;
+  background-color: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: var(--shadow-overlay);
+}
+
+.mobile-fallback-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobile-fallback-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+}
+
+.mobile-fallback-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.mobile-fallback-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Tablet & Laptop Adjustments (<= 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 230px;
+  }
+
+  .navbar-center {
+    max-width: 300px;
+  }
+}
+
+/* Tablet Screen (<= 768px) */
+@media (max-width: 768px) {
+  .app-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    box-shadow: var(--shadow-overlay);
+  }
+
+  .app-sidebar.sidebar-collapsed {
+    transform: translateX(-100%);
+    margin-left: 0;
+  }
+
+  .navbar-center {
+    display: none;
+  }
+
+  /* Automatically collapse split view to single pane */
+  .workspace-panes {
+    flex-direction: column;
+  }
+
+  .pane-editor, .pane-preview {
+    border-right: none;
+  }
+
+  .markdown-rendered {
+    padding: 16px;
+  }
+}
+
+/* Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+  .navbar-breadcrumbs {
+    display: none;
+  }
+
+  .editor-header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .editor-toolbar-container {
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 4px;
+  }
+
+  .statusbar-right #status-stats {
+    display: none;
+  }
+
+  .editor-gutter {
+    width: 36px;
+    padding-right: 4px;
+  }
+
+  .preview-pane-body {
+    padding: 14px 16px;
+  }
+}
