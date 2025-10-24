@@ -2,11 +2,13 @@
  * Top Navigation Bar Styles
  */
 
+.app-navbar,
 .navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  height: var(--navbar-height);
+  max-height: var(--navbar-height);
   padding: 0 var(--space-sm);
   user-select: none;
 }
