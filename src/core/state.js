@@ -5,6 +5,7 @@
 import { EVENTS } from './events.js';
 import * as db from '../storage/db.js';
 import * as prefs from '../storage/preferences.js';
+import { getUniqueDocTitle, getUniqueFolderName, deduplicateExistingDocs } from '../utils/naming.js';
 
 class StateStore {
   constructor() {
@@ -52,6 +53,14 @@ class StateStore {
   async init() {
     this.folders = await db.getAllFolders();
     this.documents = await db.getAllDocuments();
+
+    // Sanitize any duplicate titles in the same folder from prior runs
+    const wasDeduplicated = deduplicateExistingDocs(this.documents);
+    if (wasDeduplicated) {
+      for (const d of this.documents) {
+        await db.saveDocument(d);
+      }
+    }
 
     // Restore open tabs from preferences or default to first documents
     const savedTabs = prefs.getStoredOpenDocIds();
@@ -202,7 +211,8 @@ class StateStore {
 
   async createNewDocument({ title = 'untitled.md', folderId = null, content = '' }) {
     try {
-      const newDoc = await db.createDocument({ title, folderId, content });
+      const uniqueTitle = getUniqueDocTitle(title, folderId, this.documents);
+      const newDoc = await db.createDocument({ title: uniqueTitle, folderId, content });
       this.documents.push(newDoc);
       this.emit(EVENTS.DOC_CREATED, { doc: newDoc });
       await this.openDocInTab(newDoc.id);
@@ -217,16 +227,31 @@ class StateStore {
 
   async renameDocument(id, newTitle) {
     const doc = this.getDocument(id);
-    if (!doc) return;
+    if (!doc) return false;
 
     const trimmed = newTitle.trim();
-    if (!trimmed) return;
+    if (!trimmed) return false;
     const finalTitle = trimmed.endsWith('.md') ? trimmed : `${trimmed}.md`;
+
+    if (doc.title === finalTitle) return true;
+
+    // Validate collision against sibling documents in the same folder
+    const hasCollision = this.documents.some(d =>
+      d.id !== id &&
+      (d.folderId || null) === (doc.folderId || null) &&
+      d.title.toLowerCase() === finalTitle.toLowerCase()
+    );
+
+    if (hasCollision) {
+      this.emit(EVENTS.TOAST, { message: `A document named "${finalTitle}" already exists in this folder`, type: 'error' });
+      return false;
+    }
 
     doc.title = finalTitle;
     await db.saveDocument(doc);
     this.emit(EVENTS.DOC_RENAMED, { doc, id, title: finalTitle });
     this.emit(EVENTS.TOAST, { message: `Renamed to "${finalTitle}"`, type: 'info' });
+    return true;
   }
 
   async deleteDocument(id) {
@@ -250,10 +275,11 @@ class StateStore {
     if (!original) return;
 
     const baseName = original.title.replace(/\.md$/, '');
-    const newTitle = `${baseName}-copy.md`;
+    const candidate = `${baseName}-copy.md`;
+    const uniqueTitle = getUniqueDocTitle(candidate, original.folderId, this.documents);
 
     return await this.createNewDocument({
-      title: newTitle,
+      title: uniqueTitle,
       folderId: original.folderId,
       content: original.content
     });
@@ -263,17 +289,30 @@ class StateStore {
     const doc = this.getDocument(id);
     if (!doc) return;
 
-    doc.folderId = targetFolderId;
+    // Check collision in destination folder
+    const targetFolder = targetFolderId || null;
+    const hasCollision = this.documents.some(d =>
+      d.id !== id &&
+      (d.folderId || null) === targetFolder &&
+      d.title.toLowerCase() === doc.title.toLowerCase()
+    );
+
+    if (hasCollision) {
+      doc.title = getUniqueDocTitle(doc.title, targetFolder, this.documents);
+    }
+
+    doc.folderId = targetFolder;
     await db.saveDocument(doc);
-    this.emit(EVENTS.DOC_MOVED, { doc, id, folderId: targetFolderId });
-    const targetFolder = targetFolderId ? this.getFolder(targetFolderId)?.name : 'Root Workspace';
-    this.emit(EVENTS.TOAST, { message: `Moved "${doc.title}" to ${targetFolder}`, type: 'info' });
+    this.emit(EVENTS.DOC_MOVED, { doc, id, folderId: targetFolder });
+    const targetFolderName = targetFolder ? this.getFolder(targetFolder)?.name : 'Root Workspace';
+    this.emit(EVENTS.TOAST, { message: `Moved "${doc.title}" to ${targetFolderName}`, type: 'info' });
   }
 
   // Folder Operations
   async createNewFolder({ name = 'New Folder', parentId = null }) {
     try {
-      const newFolder = await db.createFolder({ name, parentId });
+      const uniqueName = getUniqueFolderName(name, parentId, this.folders);
+      const newFolder = await db.createFolder({ name: uniqueName, parentId });
       this.folders.push(newFolder);
       this.emit(EVENTS.FOLDER_CREATED, { folder: newFolder });
       this.emit(EVENTS.TOAST, { message: `Created folder "${newFolder.name}"`, type: 'success' });
@@ -287,15 +326,28 @@ class StateStore {
 
   async renameFolder(id, newName) {
     const folder = this.getFolder(id);
-    if (!folder) return;
+    if (!folder) return false;
 
     const trimmed = newName.trim();
-    if (!trimmed) return;
+    if (!trimmed) return false;
+    if (folder.name === trimmed) return true;
+
+    const hasCollision = this.folders.some(f =>
+      f.id !== id &&
+      (f.parentId || null) === (folder.parentId || null) &&
+      f.name.toLowerCase() === trimmed.toLowerCase()
+    );
+
+    if (hasCollision) {
+      this.emit(EVENTS.TOAST, { message: `A folder named "${trimmed}" already exists here`, type: 'error' });
+      return false;
+    }
 
     folder.name = trimmed;
     await db.updateFolder(id, { name: trimmed });
     this.emit(EVENTS.FOLDER_RENAMED, { folder, id, name: trimmed });
     this.emit(EVENTS.TOAST, { message: `Renamed folder to "${trimmed}"`, type: 'info' });
+    return true;
   }
 
   async deleteFolder(id) {
