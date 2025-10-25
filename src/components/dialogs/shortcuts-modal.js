@@ -90,10 +90,6 @@ export function openShortcutsModal() {
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <span class="text-xs text-muted">DevNote Workspace • Keyboard Centric</span>
-          <button class="btn btn-secondary modal-close-btn">Close</button>
-        </div>
       </div>
     `;
 
