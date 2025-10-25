@@ -52,20 +52,17 @@ export class TabsComponent {
         </button>
       `;
 
-      // Click to switch tab
       tab.onclick = (e) => {
         if (e.target.closest('.tab-close-btn')) return;
         state.setActiveDoc(docId);
       };
 
-      // Close tab button
       const closeBtn = tab.querySelector('.tab-close-btn');
       closeBtn.onclick = (e) => {
         e.stopPropagation();
         state.closeTab(docId);
       };
 
-      // Middle click closes tab
       tab.onauxclick = (e) => {
         if (e.button === 1) {
           e.preventDefault();
@@ -76,7 +73,6 @@ export class TabsComponent {
       list.appendChild(tab);
     }
 
-    // Add "+" button to create new tab
     const newTabBtn = document.createElement('button');
     newTabBtn.className = 'tab-new-btn';
     newTabBtn.title = 'New Document (⌘N)';

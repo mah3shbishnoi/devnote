@@ -132,19 +132,16 @@ export class FileTreeComponent {
       </div>
     `;
 
-    // Toggle expand/collapse on row click
     row.onclick = (e) => {
       if (e.target.closest('.tree-action-btn')) return;
       this.toggleFolder(folder.id);
     };
 
-    // Right-click context menu
     row.oncontextmenu = (e) => {
       e.preventDefault();
       showFolderContextMenu(folder.id, e.clientX, e.clientY);
     };
 
-    // Quick add document inside folder
     const addDocBtn = row.querySelector('.action-add-doc');
     addDocBtn.onclick = async (e) => {
       e.stopPropagation();
@@ -158,7 +155,6 @@ export class FileTreeComponent {
       }
     };
 
-    // Folder menu trigger
     const menuBtn = row.querySelector('.action-menu');
     menuBtn.onclick = (e) => {
       e.stopPropagation();
@@ -212,19 +208,16 @@ export class FileTreeComponent {
       </div>
     `;
 
-    // Click to activate / open tab
     row.onclick = (e) => {
       if (e.target.closest('.tree-action-btn')) return;
       state.openDocInTab(doc.id);
     };
 
-    // Right-click context menu
     row.oncontextmenu = (e) => {
       e.preventDefault();
       showDocumentContextMenu(doc.id, e.clientX, e.clientY);
     };
 
-    // Menu button trigger
     const menuBtn = row.querySelector('.action-menu');
     menuBtn.onclick = (e) => {
       e.stopPropagation();

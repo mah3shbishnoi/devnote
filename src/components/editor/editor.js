@@ -146,7 +146,6 @@ export class EditorComponent {
       };
     }
 
-    // Textarea input
     this.textarea.oninput = () => {
       if (this.isProgrammaticUpdate) return;
       this.updateLineNumbers();
@@ -163,13 +162,11 @@ export class EditorComponent {
       }
     };
 
-    // Track cursor movements
     this.textarea.onkeyup = () => this.updateCursorPosition();
     this.textarea.onclick = () => this.updateCursorPosition();
 
     // Custom tab indentation & auto pairs
     this.textarea.onkeydown = (e) => {
-      // Tab key handling
       if (e.key === 'Tab') {
         e.preventDefault();
         const start = this.textarea.selectionStart;

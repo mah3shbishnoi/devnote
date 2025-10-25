@@ -69,7 +69,6 @@ export class SidebarComponent {
   }
 
   bindControls() {
-    // New Document button
     this.element.querySelector('#sidebar-new-doc-btn').onclick = async () => {
       const title = await promptDialog({
         title: 'New Document',
@@ -81,7 +80,6 @@ export class SidebarComponent {
       }
     };
 
-    // New Folder button
     this.element.querySelector('#sidebar-new-folder-btn').onclick = async () => {
       const name = await promptDialog({
         title: 'New Folder',
@@ -93,7 +91,6 @@ export class SidebarComponent {
       }
     };
 
-    // Collapse / Expand All toggle
     const toggleExpandBtn = this.element.querySelector('#sidebar-toggle-expand-btn');
     toggleExpandBtn.onclick = () => {
       if (this.allExpanded) {
@@ -109,7 +106,6 @@ export class SidebarComponent {
       }
     };
 
-    // Search filter input
     const filterInput = this.element.querySelector('#sidebar-filter-input');
     const filterClear = this.element.querySelector('#sidebar-filter-clear');
 
@@ -130,7 +126,6 @@ export class SidebarComponent {
       filterInput.focus();
     };
 
-    // Import Markdown
     this.element.querySelector('#sidebar-import-btn').onclick = async () => {
       try {
         const file = await selectAndReadMarkdownFile();
@@ -146,7 +141,6 @@ export class SidebarComponent {
       }
     };
 
-    // Export Workspace
     this.element.querySelector('#sidebar-export-all-btn').onclick = () => {
       exportWorkspaceArchive(state.documents, state.folders);
       state.emit(EVENTS.TOAST, { message: 'Exported workspace archive', type: 'success' });

@@ -6,10 +6,7 @@ export function calculateDocumentStats(content = '') {
   const characters = content.length;
   const trimmed = content.trim();
   
-  // Count words separated by whitespace
   const words = trimmed.length === 0 ? 0 : trimmed.split(/\s+/).filter(Boolean).length;
-  
-  // Count lines
   const lines = content.length === 0 ? 1 : content.split('\n').length;
 
   // Reading time (average 200 words per minute)

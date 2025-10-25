@@ -88,32 +88,26 @@ export class NavbarComponent {
   }
 
   bindControls() {
-    // Sidebar toggle
     this.element.querySelector('#navbar-sidebar-toggle').onclick = () => {
       state.toggleSidebar();
     };
 
-    // Search trigger
     this.element.querySelector('#navbar-search-trigger').onclick = () => {
       state.emit(EVENTS.OPEN_SEARCH_MODAL);
     };
 
-    // Command palette trigger
     this.element.querySelector('#navbar-palette-trigger').onclick = () => {
       state.emit(EVENTS.OPEN_COMMAND_PALETTE);
     };
 
-    // Theme toggle
     this.element.querySelector('#navbar-theme-toggle').onclick = () => {
       state.toggleTheme();
     };
 
-    // Shortcuts help
     this.element.querySelector('#navbar-help-trigger').onclick = () => {
       state.emit(EVENTS.OPEN_SHORTCUTS_MODAL);
     };
 
-    // View mode switchers
     this.element.querySelectorAll('.btn-mode').forEach(btn => {
       btn.onclick = () => {
         state.setViewMode(btn.dataset.mode);
