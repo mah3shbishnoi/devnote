@@ -132,9 +132,10 @@ export class SidebarComponent {
         if (file) {
           const newDoc = await state.createNewDocument({
             title: file.name,
-            content: file.content
+            content: file.content,
+            notify: false
           });
-          state.emit(EVENTS.TOAST, { message: `Imported "${file.name}" successfully`, type: 'success' });
+          state.emit(EVENTS.TOAST, { message: `Imported "${newDoc.title}" successfully`, type: 'success' });
         }
       } catch (err) {
         state.emit(EVENTS.TOAST, { message: 'Failed to import file', type: 'error' });

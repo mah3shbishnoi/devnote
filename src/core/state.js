@@ -215,7 +215,7 @@ class StateStore {
     }
   }
 
-  async createNewDocument({ title = 'untitled.md', folderId = null, content = '' }) {
+  async createNewDocument({ title = 'untitled.md', folderId = null, content = '', notify = true }) {
     try {
       const uniqueTitle = getUniqueDocTitle(title, folderId, this.documents);
       const newDoc = await db.createDocument({ title: uniqueTitle, folderId, content });
@@ -223,7 +223,9 @@ class StateStore {
       this.editedDocIds.add(newDoc.id);
       this.emit(EVENTS.DOC_CREATED, { doc: newDoc });
       await this.openDocInTab(newDoc.id);
-      this.emit(EVENTS.TOAST, { message: `Created "${newDoc.title}"`, type: 'success' });
+      if (notify) {
+        this.emit(EVENTS.TOAST, { message: `Created "${newDoc.title}"`, type: 'success' });
+      }
       return newDoc;
     } catch (err) {
       console.error('Failed to create document:', err);

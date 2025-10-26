@@ -169,7 +169,12 @@ export class CommandPaletteComponent {
         action: async () => {
           const file = await selectAndReadMarkdownFile();
           if (file) {
-            state.createNewDocument({ title: file.name, content: file.content });
+            const newDoc = await state.createNewDocument({
+              title: file.name,
+              content: file.content,
+              notify: false
+            });
+            state.emit(EVENTS.TOAST, { message: `Imported "${newDoc.title}" successfully`, type: 'success' });
           }
         }
       },
