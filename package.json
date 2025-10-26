@@ -3,7 +3,13 @@
   "private": true,
   "version": "1.0.0",
   "description": "Professional developer documentation workspace with local IndexedDB persistence",
-  "keywords": ["documentation", "developer-tools", "markdown", "indexeddb", "workspace"],
+  "keywords": [
+    "documentation",
+    "developer-tools",
+    "markdown",
+    "indexeddb",
+    "workspace"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +17,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "jszip": "^3.10.2",
     "marked": "^15.0.7",
     "prismjs": "^1.29.0"
   },

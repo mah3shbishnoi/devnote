@@ -4,7 +4,7 @@
 
 import { state } from '../../core/state.js';
 import { getIcon } from '../../utils/icons.js';
-import { exportDocument } from '../../utils/export.js';
+import { exportDocument, exportDocumentsAsZip } from '../../utils/export.js';
 import { promptDialog, confirmDialog, moveDocDialog } from '../dialogs/dialogs.js';
 
 let activeMenu = null;
@@ -124,6 +124,10 @@ export function showFolderContextMenu(folderId, x, y) {
       <span class="context-icon">${getIcon('edit')}</span>
       <span>Rename Folder</span>
     </div>
+    <div class="context-menu-item" data-action="export-folder">
+      <span class="context-icon">${getIcon('download')}</span>
+      <span>Export Folder as .zip</span>
+    </div>
     <div class="context-menu-divider"></div>
     <div class="context-menu-item text-danger" data-action="delete">
       <span class="context-icon">${getIcon('trash')}</span>
@@ -158,6 +162,21 @@ export function showFolderContextMenu(folderId, x, y) {
         if (newName && newName !== folder.name) {
           state.renameFolder(folderId, newName);
         }
+      } else if (action === 'export-folder') {
+        const folderIds = new Set([folderId]);
+        function collectChildren(parent) {
+          for (const f of state.folders) {
+            if (f.parentId === parent && !folderIds.has(f.id)) {
+              folderIds.add(f.id);
+              collectChildren(f.id);
+            }
+          }
+        }
+        collectChildren(folderId);
+        const docs = state.documents.filter(d => folderIds.has(d.folderId));
+        const subfolders = state.folders.filter(f => folderIds.has(f.id));
+        const safeName = (folder.name || 'folder').toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+        await exportDocumentsAsZip(docs, subfolders, `${safeName}.zip`);
       } else if (action === 'delete') {
         const confirmed = await confirmDialog({
           title: 'Delete Folder',

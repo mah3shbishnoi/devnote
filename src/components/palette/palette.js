@@ -6,7 +6,7 @@ import { state } from '../../core/state.js';
 import { EVENTS } from '../../core/events.js';
 import { getIcon } from '../../utils/icons.js';
 import { getModKeyLabel } from '../../core/shortcuts.js';
-import { exportDocument, exportWorkspaceArchive } from '../../utils/export.js';
+import { exportDocument, exportDocumentsAsZip, smartExport } from '../../utils/export.js';
 import { selectAndReadMarkdownFile } from '../../utils/import.js';
 import { promptDialog, confirmDialog, moveDocDialog } from '../dialogs/dialogs.js';
 
@@ -153,12 +153,12 @@ export class CommandPaletteComponent {
         }
       },
       {
-        id: 'export-workspace',
-        title: 'Export Full Workspace (JSON)',
+        id: 'export-workspace-zip',
+        title: 'Export Workspace Documents (.zip)',
         category: 'File',
         icon: 'download',
         shortcut: '',
-        action: () => exportWorkspaceArchive(state.documents, state.folders)
+        action: () => exportDocumentsAsZip(state.documents, state.folders, 'devnote-workspace.zip')
       },
       {
         id: 'import-md',

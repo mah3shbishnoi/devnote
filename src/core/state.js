@@ -15,6 +15,7 @@ class StateStore {
     this.activeDocId = null;
     this.openDocIds = [];
     this.unsavedDocIds = new Set();
+    this.editedDocIds = new Set();
     this.theme = prefs.getStoredTheme();
     this.viewMode = prefs.getStoredViewMode();
     this.sidebarCollapsed = prefs.getStoredSidebarCollapsed();
@@ -107,6 +108,10 @@ class StateStore {
     return this.folders.find(f => f.id === id) || null;
   }
 
+  getEditedDocuments() {
+    return this.documents.filter(d => this.editedDocIds.has(d.id));
+  }
+
   // Document Operations
   async setActiveDoc(id) {
     if (this.activeDocId === id) return;
@@ -175,6 +180,7 @@ class StateStore {
 
     doc.content = newContent;
     this.unsavedDocIds.add(id);
+    this.editedDocIds.add(id);
 
     this.emit(EVENTS.DOC_UPDATED, { doc, id, content: newContent });
 
@@ -214,6 +220,7 @@ class StateStore {
       const uniqueTitle = getUniqueDocTitle(title, folderId, this.documents);
       const newDoc = await db.createDocument({ title: uniqueTitle, folderId, content });
       this.documents.push(newDoc);
+      this.editedDocIds.add(newDoc.id);
       this.emit(EVENTS.DOC_CREATED, { doc: newDoc });
       await this.openDocInTab(newDoc.id);
       this.emit(EVENTS.TOAST, { message: `Created "${newDoc.title}"`, type: 'success' });
@@ -249,6 +256,7 @@ class StateStore {
 
     doc.title = finalTitle;
     await db.saveDocument(doc);
+    this.editedDocIds.add(id);
     this.emit(EVENTS.DOC_RENAMED, { doc, id, title: finalTitle });
     this.emit(EVENTS.TOAST, { message: `Renamed to "${finalTitle}"`, type: 'info' });
     return true;
@@ -261,6 +269,7 @@ class StateStore {
     try {
       await db.deleteDocument(id);
       this.documents = this.documents.filter(d => d.id !== id);
+      this.editedDocIds.delete(id);
       this.closeTab(id);
       this.emit(EVENTS.DOC_DELETED, { id, title: doc.title });
       this.emit(EVENTS.TOAST, { message: `Deleted "${doc.title}"`, type: 'info' });

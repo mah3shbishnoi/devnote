@@ -8,7 +8,7 @@ import { getIcon } from '../../utils/icons.js';
 import { FileTreeComponent } from './tree.js';
 import { promptDialog } from '../dialogs/dialogs.js';
 import { selectAndReadMarkdownFile } from '../../utils/import.js';
-import { exportWorkspaceArchive } from '../../utils/export.js';
+import { smartExport } from '../../utils/export.js';
 
 export class SidebarComponent {
   constructor(element) {
@@ -53,9 +53,9 @@ export class SidebarComponent {
           <span class="icon-sm">${getIcon('upload')}</span>
           <span>Import .md</span>
         </button>
-        <button class="sidebar-footer-btn" id="sidebar-export-all-btn" title="Export Workspace JSON">
+        <button class="sidebar-footer-btn" id="sidebar-export-all-btn" title="Export Markdown (.md / .zip)">
           <span class="icon-sm">${getIcon('download')}</span>
-          <span>Export Workspace</span>
+          <span>Export</span>
         </button>
       </div>
     `;
@@ -141,9 +141,20 @@ export class SidebarComponent {
       }
     };
 
-    this.element.querySelector('#sidebar-export-all-btn').onclick = () => {
-      exportWorkspaceArchive(state.documents, state.folders);
-      state.emit(EVENTS.TOAST, { message: 'Exported workspace archive', type: 'success' });
+    this.element.querySelector('#sidebar-export-all-btn').onclick = async () => {
+      try {
+        const result = await smartExport(state);
+        if (result?.type === 'single') {
+          state.emit(EVENTS.TOAST, { message: `Exported "${result.name}" (.md)`, type: 'success' });
+        } else if (result?.type === 'zip') {
+          state.emit(EVENTS.TOAST, { message: `Exported ${result.count} documents (.zip)`, type: 'success' });
+        } else {
+          state.emit(EVENTS.TOAST, { message: 'No documents to export', type: 'info' });
+        }
+      } catch (err) {
+        console.error('Export failed:', err);
+        state.emit(EVENTS.TOAST, { message: 'Failed to export documents', type: 'error' });
+      }
     };
   }
 
