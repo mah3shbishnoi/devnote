@@ -93,22 +93,6 @@ export async function smartExport(state) {
     return { type: 'zip', count: editedDocs.length };
   }
 
-  const activeDoc = state.getActiveDoc();
-  if (activeDoc) {
-    exportDocument(activeDoc);
-    return { type: 'single', name: activeDoc.title };
-  }
-
-  if (state.documents.length === 1) {
-    exportDocument(state.documents[0]);
-    return { type: 'single', name: state.documents[0].title };
-  }
-
-  if (state.documents.length > 1) {
-    const timestamp = new Date().toISOString().slice(0, 10);
-    await exportDocumentsAsZip(state.documents, state.folders, `devnote-workspace-${timestamp}.zip`);
-    return { type: 'zip', count: state.documents.length };
-  }
-
-  return null;
+  return { type: 'none' };
 }
+

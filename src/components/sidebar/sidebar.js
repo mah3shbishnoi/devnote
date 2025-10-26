@@ -150,7 +150,7 @@ export class SidebarComponent {
         } else if (result?.type === 'zip') {
           state.emit(EVENTS.TOAST, { message: `Exported ${result.count} documents (.zip)`, type: 'success' });
         } else {
-          state.emit(EVENTS.TOAST, { message: 'No documents to export', type: 'info' });
+          state.emit(EVENTS.TOAST, { message: 'No modified documents to export', type: 'info' });
         }
       } catch (err) {
         console.error('Export failed:', err);
