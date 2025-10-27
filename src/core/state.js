@@ -5,7 +5,7 @@
 import { EVENTS } from './events.js';
 import * as db from '../storage/db.js';
 import * as prefs from '../storage/preferences.js';
-import { getUniqueDocTitle, getUniqueFolderName, deduplicateExistingDocs } from '../utils/naming.js';
+import { parseFileName, getUniqueDocTitle, getUniqueFolderName, deduplicateExistingDocs } from '../utils/naming.js';
 
 class StateStore {
   constructor() {
@@ -240,7 +240,8 @@ class StateStore {
 
     const trimmed = newTitle.trim();
     if (!trimmed) return false;
-    const finalTitle = trimmed.endsWith('.md') ? trimmed : `${trimmed}.md`;
+    const { base, originalExt } = parseFileName(trimmed);
+    const finalTitle = `${base}${originalExt}`;
 
     if (doc.title === finalTitle) return true;
 
@@ -285,8 +286,8 @@ class StateStore {
     const original = this.getDocument(id);
     if (!original) return;
 
-    const baseName = original.title.replace(/\.md$/, '');
-    const candidate = `${baseName}-copy.md`;
+    const { base, originalExt } = parseFileName(original.title);
+    const candidate = `${base}-copy${originalExt}`;
     const uniqueTitle = getUniqueDocTitle(candidate, original.folderId, this.documents);
 
     return await this.createNewDocument({

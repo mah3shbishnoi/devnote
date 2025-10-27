@@ -1,9 +1,11 @@
 import JSZip from 'jszip';
+import { parseFileName } from './naming.js';
 
 export function exportDocument(doc) {
   if (!doc) return;
-  const fileName = doc.title.endsWith('.md') ? doc.title : `${doc.title}.md`;
-  const blob = new Blob([doc.content || ''], { type: 'text/markdown;charset=utf-8' });
+  const { base, originalExt } = parseFileName(doc.title);
+  const fileName = `${base}${originalExt}`;
+  const blob = new Blob([doc.content || ''], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   
   const a = document.createElement('a');
@@ -48,15 +50,15 @@ export async function exportDocumentsAsZip(documents = [], folders = [], zipName
 
   for (const doc of documents) {
     const folderPath = doc.folderId ? (folderPathMap.get(doc.folderId) || '') : '';
-    let fileName = doc.title.endsWith('.md') ? doc.title : `${doc.title}.md`;
-    fileName = fileName.replace(/[\\/:*?"<>|]/g, '_').trim();
+    const { base, originalExt } = parseFileName(doc.title);
+    const safeBase = base.replace(/[\\/:*?"<>|]/g, '_').trim();
+    let fileName = `${safeBase}${originalExt}`;
 
     let fullPath = folderPath ? `${folderPath}/${fileName}` : fileName;
     let counter = 1;
-    const baseName = fileName.replace(/\.md$/, '');
 
     while (seenPaths.has(fullPath)) {
-      const candidateName = `${baseName}-${counter}.md`;
+      const candidateName = `${safeBase}-${counter}${originalExt}`;
       fullPath = folderPath ? `${folderPath}/${candidateName}` : candidateName;
       counter++;
     }

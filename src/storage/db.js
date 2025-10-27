@@ -130,7 +130,7 @@ export async function createDocument({ title = 'untitled.md', folderId = null, c
 
   const newDoc = {
     id,
-    title: title.trim().endsWith('.md') ? title.trim() : `${title.trim()}.md`,
+    title: title.trim(),
     folderId: folderId || null,
     content,
     createdAt: now,
