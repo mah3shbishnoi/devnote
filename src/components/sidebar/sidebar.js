@@ -49,9 +49,9 @@ export class SidebarComponent {
       <div class="sidebar-tree-container" id="sidebar-tree"></div>
 
       <div class="sidebar-footer">
-        <button class="sidebar-footer-btn" id="sidebar-import-btn" title="Import Markdown File">
+        <button class="sidebar-footer-btn" id="sidebar-import-btn" title="Import Text or Code File">
           <span class="icon-sm">${getIcon('upload')}</span>
-          <span>Import .md</span>
+          <span>Import</span>
         </button>
         <button class="sidebar-footer-btn" id="sidebar-export-all-btn" title="Export Markdown (.md / .zip)">
           <span class="icon-sm">${getIcon('download')}</span>
@@ -138,7 +138,7 @@ export class SidebarComponent {
           state.emit(EVENTS.TOAST, { message: `Imported "${newDoc.title}" successfully`, type: 'success' });
         }
       } catch (err) {
-        state.emit(EVENTS.TOAST, { message: 'Failed to import file', type: 'error' });
+        state.emit(EVENTS.TOAST, { message: err?.message || 'Failed to import file', type: 'error' });
       }
     };
 

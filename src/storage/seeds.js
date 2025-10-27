@@ -46,7 +46,7 @@ DevNote allows you to write, organize, search, and preview Markdown documentatio
 * **Hierarchical File Tree:** Nest documents within folders, drag or move files across directories, and perform batch file operations.
 * **Instant Command Palette (\`Cmd+K\`):** Navigate files, execute workspace commands, toggle themes, and trigger exports without touching the mouse.
 * **Full-Text In-Memory Search (\`Cmd+P\`):** Query document titles and content with real-time excerpt matching and keyword highlighting.
-* **Import & Export:** Native export to raw \`.md\` files and complete JSON workspace archives.
+* **Import & Export:** Native export to individual files and structured ZIP workspace archives.
 
 ---
 

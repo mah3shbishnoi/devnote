@@ -16,7 +16,7 @@ DevNote provides an information-dense, high-efficiency environment for creating,
 * **Command Palette (`⌘K` / `Ctrl+K`):** Global command dispatcher supporting quick actions (file creation, folder operations, view mode toggling, theme switching, and exports) completely via keyboard.
 * **Code Block Enhancements:** Syntax highlighting across major languages via Prism.js with uppercase language badge tags and 1-click clipboard copy buttons.
 * **Document Management:** Full lifecycle support for creating, renaming, deleting (with confirmation safeguards), duplicating, and moving files between directories.
-* **Import & Export:** Native `.md` file import and single-file or complete workspace archive (`.json`) export.
+* **Import & Export:** Native text and code file import, single-file export, and structured ZIP workspace archive export.
 * **Real-Time Document Telemetry:** Live line and column tracking, word count, character count, and estimated reading time.
 * **Engineered Dark & Light Themes:** High-contrast, mature palettes tailored for technical documentation and developer environments.
 * **Desktop-First Responsive Fallback:** Optimized for workstation productivity with clean responsive fallbacks that prevent broken layouts or horizontal overflows.
@@ -65,7 +65,7 @@ src/
 │   ├── dom.js            # Safe DOM manipulation helpers
 │   ├── icons.js          # Precision SVG icon definitions
 │   ├── stats.js          # Word, character, and reading time algorithms
-│   ├── export.js         # Markdown blob & JSON archive download triggers
+│   ├── export.js         # Single file & ZIP archive download triggers
 │   └── import.js         # Client-side FileReader markdown import pipeline
 └── styles/
     ├── tokens.css        # Palette tokens, radii, elevations, and layout dimensions

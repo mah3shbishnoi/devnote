@@ -7,6 +7,35 @@ import { EVENTS } from '../../core/events.js';
 import { getIcon } from '../../utils/icons.js';
 import { renderMarkdownToHtml } from './markdown.js';
 
+function getLanguageFromFilename(filename = '') {
+  const lastDot = filename.lastIndexOf('.');
+  if (lastDot === -1) return null;
+  const ext = filename.slice(lastDot).toLowerCase();
+  const map = {
+    '.js': 'javascript',
+    '.mjs': 'javascript',
+    '.cjs': 'javascript',
+    '.ts': 'typescript',
+    '.tsx': 'typescript',
+    '.jsx': 'javascript',
+    '.py': 'python',
+    '.json': 'json',
+    '.css': 'css',
+    '.scss': 'css',
+    '.html': 'html',
+    '.htm': 'html',
+    '.xml': 'html',
+    '.sh': 'bash',
+    '.bash': 'bash',
+    '.zsh': 'bash',
+    '.sql': 'sql',
+    '.yaml': 'yaml',
+    '.yml': 'yaml',
+    '.dockerfile': 'docker'
+  };
+  return map[ext] || null;
+}
+
 export class PreviewComponent {
   constructor(element) {
     this.element = element;
@@ -76,7 +105,17 @@ export class PreviewComponent {
       titleEl.textContent = activeDoc.title;
     }
 
-    const html = renderMarkdownToHtml(activeDoc.content || '');
+    const lang = getLanguageFromFilename(activeDoc.title);
+    let html = '';
+
+    if (lang) {
+      html = renderMarkdownToHtml(`\`\`\`${lang}\n${activeDoc.content || ''}\n\`\`\``);
+    } else if (activeDoc.title.endsWith('.txt') || activeDoc.title.endsWith('.log')) {
+      html = renderMarkdownToHtml(`\`\`\`text\n${activeDoc.content || ''}\n\`\`\``);
+    } else {
+      html = renderMarkdownToHtml(activeDoc.content || '');
+    }
+
     this.previewBody.innerHTML = html;
   }
 

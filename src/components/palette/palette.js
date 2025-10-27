@@ -161,20 +161,24 @@ export class CommandPaletteComponent {
         action: () => exportDocumentsAsZip(state.documents, state.folders, 'devnote-workspace.zip')
       },
       {
-        id: 'import-md',
-        title: 'Import Markdown File (.md)',
+        id: 'import-file',
+        title: 'Import Text or Code File',
         category: 'File',
         icon: 'upload',
         shortcut: '',
         action: async () => {
-          const file = await selectAndReadMarkdownFile();
-          if (file) {
-            const newDoc = await state.createNewDocument({
-              title: file.name,
-              content: file.content,
-              notify: false
-            });
-            state.emit(EVENTS.TOAST, { message: `Imported "${newDoc.title}" successfully`, type: 'success' });
+          try {
+            const file = await selectAndReadMarkdownFile();
+            if (file) {
+              const newDoc = await state.createNewDocument({
+                title: file.name,
+                content: file.content,
+                notify: false
+              });
+              state.emit(EVENTS.TOAST, { message: `Imported "${newDoc.title}" successfully`, type: 'success' });
+            }
+          } catch (err) {
+            state.emit(EVENTS.TOAST, { message: err?.message || 'Failed to import file', type: 'error' });
           }
         }
       },
