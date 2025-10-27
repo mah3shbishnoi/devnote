@@ -63,10 +63,6 @@ export function openShortcutsModal() {
                 <span class="shortcut-label">New Document</span>
                 <div class="shortcut-keys"><kbd>${mod}</kbd><kbd>N</kbd></div>
               </div>
-              <div class="shortcut-row">
-                <span class="shortcut-label">Save Document</span>
-                <div class="shortcut-keys"><kbd>${mod}</kbd><kbd>S</kbd></div>
-              </div>
             </div>
 
             <div class="shortcut-group">
