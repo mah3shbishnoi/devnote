@@ -132,24 +132,24 @@ npm run preview
 
 ## Keyboard Shortcuts
 
-| Shortcut | Action | Scope |
-| :--- | :--- | :--- |
-| `⌘K` / `Ctrl+K` | Open Command Palette | Global |
-| `⌘P` / `Ctrl+P` | Quick Document & Content Search | Global |
-| `⌘S` / `Ctrl+S` | Force Save Active Document | Editor |
-| `⌘N` / `Ctrl+N` | Create New Document | Global |
-| `⌘\` / `Ctrl+\` | Toggle Sidebar Visibility | Global |
-| `?` | Show Keyboard Shortcuts Cheat Sheet | Global |
-| `⌘B` / `Ctrl+B` | Bold Selection (`**text**`) | Editor |
-| `⌘I` / `Ctrl+I` | Italic Selection (`*text*`) | Editor |
-| `Tab` | Indent 2 Spaces / Indent Selection | Editor |
-| `Shift + Tab` | Outdent Line / Outdent Selection | Editor |
-| `Esc` | Dismiss Active Modal, Palette, or Context Menu | Global |
+| Shortcut | Action |
+| :--- | :--- |
+| `⌘K` / `Ctrl+K` | Open Command Palette |
+| `⌘P` / `Ctrl+P` | Quick Document & Content Search |
+| `⌘N` / `Ctrl+N` | Create New Document |
+| `⌘\` / `Ctrl+\` | Toggle Sidebar Visibility |
+| `?` | Show Keyboard Shortcuts Cheat Sheet |
+| `⌘B` / `Ctrl+B` | Bold Selection (`**text**`) |
+| `⌘I` / `Ctrl+I` | Italic Selection (`*text*`) |
+| `Tab` | Indent 2 Spaces / Indent Selection |
+| `Shift + Tab` | Outdent Line / Outdent Selection |
+| `Esc` | Dismiss Active Modal, Palette, or Context Menu |
 
 ---
 
 ## Future Improvements
 
+* **Offline P2P Document Sharing:** WebRTC peer-to-peer workspace sync between local browsers without remote servers.
 * **Vim Navigation Mode:** Optional modal editing keybindings (`hjkl`, normal/insert mode) in the source editor.
 * **Mermaid Diagram Support:** Client-side parsing and rendering of architecture sequence and flowchart diagrams.
 * **Document Version History:** Snapshot timeline diffs stored within IndexedDB object stores.

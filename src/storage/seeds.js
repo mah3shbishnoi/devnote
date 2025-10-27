@@ -52,26 +52,20 @@ DevNote allows you to write, organize, search, and preview Markdown documentatio
 
 ### Quick Workspace Cheatsheet
 
-| Shortcut | Action | Scope |
-| :--- | :--- | :--- |
-| \`Cmd / Ctrl + K\` | Open Command Palette | Global |
-| \`Cmd / Ctrl + P\` | Quick File & Content Search | Global |
-| \`Cmd / Ctrl + S\` | Force Save Document | Editor |
-| \`Cmd / Ctrl + N\` | Create New Document | Global |
-| \`Cmd / Ctrl + B\` | Toggle Bold Syntax | Editor Selection |
-| \`Cmd / Ctrl + I\` | Toggle Italic Syntax | Editor Selection |
-| \`Esc\` | Dismiss Active Modal / Overlay | Global |
+| Shortcut | Action |
+| :--- | :--- |
+| \`Cmd / Ctrl + K\` | Open Command Palette |
+| \`Cmd / Ctrl + P\` | Quick File & Content Search |
+| \`Cmd / Ctrl + N\` | Create New Document |
+| \`Cmd / Ctrl + B\` | Toggle Bold Syntax |
+| \`Cmd / Ctrl + I\` | Toggle Italic Syntax |
+| \`Esc\` | Dismiss Active Modal / Overlay |
 
 ---
 
-### Project Roadmap
+### Future Implementation
 
-- [x] IndexedDB local schema and storage transactions
-- [x] GFM rendering with Prism syntax highlighting
-- [x] Multi-tab document workspace
-- [x] High-performance full-text search
-- [x] Markdown import and export
-- [ ] Offline WebRTC peer-to-peer document sharing
+* Offline WebRTC peer-to-peer document sharing
 
 > **Engineering Note:** To inspect or modify workspace settings, use the top bar or launch the Command Palette with \`Cmd+K\`.
 `
