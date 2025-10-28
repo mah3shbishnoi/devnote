@@ -55,6 +55,9 @@ export async function openDB() {
   });
 }
 
+const SEED_VERSION_KEY = 'devnote_seeds_version';
+const CURRENT_SEED_VERSION = '2.1';
+
 async function seedInitialDataIfEmpty(db) {
   const count = await new Promise((resolve) => {
     const tx = db.transaction('documents', 'readonly');
@@ -63,6 +66,8 @@ async function seedInitialDataIfEmpty(db) {
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => resolve(0);
   });
+
+  const storedVersion = localStorage.getItem(SEED_VERSION_KEY);
 
   if (count === 0) {
     const tx = db.transaction(['folders', 'documents'], 'readwrite');
@@ -80,6 +85,28 @@ async function seedInitialDataIfEmpty(db) {
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
+    localStorage.setItem(SEED_VERSION_KEY, CURRENT_SEED_VERSION);
+  } else if (storedVersion !== CURRENT_SEED_VERSION) {
+    const tx = db.transaction(['documents'], 'readwrite');
+    const docStore = tx.objectStore('documents');
+
+    for (const doc of INITIAL_DOCUMENTS) {
+      const existing = await new Promise((res) => {
+        const req = docStore.get(doc.id);
+        req.onsuccess = () => res(req.result);
+        req.onerror = () => res(null);
+      });
+
+      if (existing && !existing.isModified) {
+        docStore.put({ ...doc, createdAt: existing.createdAt });
+      }
+    }
+
+    await new Promise((resolve, reject) => {
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+    localStorage.setItem(SEED_VERSION_KEY, CURRENT_SEED_VERSION);
   }
 }
 
