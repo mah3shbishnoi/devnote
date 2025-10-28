@@ -104,3 +104,30 @@ export function deduplicateExistingDocs(docs = []) {
 
   return hasModified;
 }
+
+export function validateDocTitle(requestedTitle, folderId = null, existingDocs = [], excludeDocId = null) {
+  const trimmed = (requestedTitle || '').trim();
+  if (!trimmed) return 'Document title cannot be empty.';
+  const { base, originalExt } = parseFileName(trimmed);
+  const candidate = `${base}${originalExt}`.toLowerCase();
+  const exists = existingDocs.some(
+    d => d.id !== excludeDocId && (d.folderId || null) === (folderId || null) && d.title.toLowerCase() === candidate
+  );
+  if (exists) {
+    return `"${base}${originalExt}" already exists in this location.`;
+  }
+  return null;
+}
+
+export function validateFolderName(requestedName, parentId = null, existingFolders = [], excludeFolderId = null) {
+  const trimmed = (requestedName || '').trim();
+  if (!trimmed) return 'Folder name cannot be empty.';
+  const exists = existingFolders.some(
+    f => f.id !== excludeFolderId && (f.parentId || null) === (parentId || null) && f.name.toLowerCase() === trimmed.toLowerCase()
+  );
+  if (exists) {
+    return `Folder "${trimmed}" already exists.`;
+  }
+  return null;
+}
+

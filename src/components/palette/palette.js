@@ -9,6 +9,7 @@ import { getModKeyLabel } from '../../core/shortcuts.js';
 import { exportDocument, exportDocumentsAsZip, smartExport } from '../../utils/export.js';
 import { selectAndReadMarkdownFile } from '../../utils/import.js';
 import { promptDialog, confirmDialog, moveDocDialog } from '../dialogs/dialogs.js';
+import { getUniqueDocTitle, getUniqueFolderName, validateDocTitle, validateFolderName } from '../../utils/naming.js';
 
 export class CommandPaletteComponent {
   constructor() {
@@ -37,10 +38,12 @@ export class CommandPaletteComponent {
         icon: 'filePlus',
         shortcut: `${mod}+N`,
         action: async () => {
+          const defaultName = getUniqueDocTitle('untitled.md', null, state.documents);
           const title = await promptDialog({
             title: 'New Document',
-            defaultValue: 'untitled.md',
-            confirmText: 'Create'
+            defaultValue: defaultName,
+            confirmText: 'Create',
+            validate: (val) => validateDocTitle(val, null, state.documents)
           });
           if (title) state.createNewDocument({ title });
         }
@@ -52,10 +55,12 @@ export class CommandPaletteComponent {
         icon: 'folderPlus',
         shortcut: '',
         action: async () => {
+          const defaultName = getUniqueFolderName('New Folder', null, state.folders);
           const name = await promptDialog({
             title: 'New Folder',
-            defaultValue: 'New Folder',
-            confirmText: 'Create'
+            defaultValue: defaultName,
+            confirmText: 'Create',
+            validate: (val) => validateFolderName(val, null, state.folders)
           });
           if (name) state.createNewFolder({ name });
         }
@@ -92,7 +97,8 @@ export class CommandPaletteComponent {
           const newName = await promptDialog({
             title: 'Rename Document',
             defaultValue: activeDoc.title,
-            confirmText: 'Rename'
+            confirmText: 'Rename',
+            validate: (val) => validateDocTitle(val, activeDoc.folderId, state.documents, activeDoc.id)
           });
           if (newName && newName !== activeDoc.title) {
             state.renameDocument(activeDoc.id, newName);

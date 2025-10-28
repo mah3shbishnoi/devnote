@@ -75,7 +75,14 @@ export function confirmDialog({ title = 'Confirm Action', message = 'Are you sur
   });
 }
 
-export function promptDialog({ title = 'Input Required', message = '', defaultValue = '', placeholder = '', confirmText = 'Save' }) {
+export function promptDialog({
+  title = 'Input Required',
+  message = '',
+  defaultValue = '',
+  placeholder = '',
+  confirmText = 'Save',
+  validate = null
+}) {
   return new Promise((resolve) => {
     const root = ensureModalRoot();
     const overlay = document.createElement('div');
@@ -90,6 +97,7 @@ export function promptDialog({ title = 'Input Required', message = '', defaultVa
         <div class="modal-body">
           ${message ? `<p class="modal-message">${message}</p>` : ''}
           <input type="text" class="input modal-text-input" value="${defaultValue}" placeholder="${placeholder}" />
+          <div class="modal-input-error" style="display: none;"></div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary modal-cancel-btn">Cancel</button>
@@ -101,12 +109,40 @@ export function promptDialog({ title = 'Input Required', message = '', defaultVa
     root.appendChild(overlay);
 
     const input = overlay.querySelector('.modal-text-input');
+    const errorEl = overlay.querySelector('.modal-input-error');
     const confirmBtn = overlay.querySelector('.modal-confirm-btn');
     const cancelBtn = overlay.querySelector('.modal-cancel-btn');
     const closeBtn = overlay.querySelector('.modal-close-btn');
 
+    const checkValidity = (val) => {
+      if (typeof validate === 'function') {
+        const error = validate(val);
+        if (error) {
+          errorEl.textContent = error;
+          errorEl.style.display = 'block';
+          input.classList.add('input-invalid');
+          confirmBtn.disabled = true;
+          confirmBtn.style.opacity = '0.5';
+          confirmBtn.style.cursor = 'not-allowed';
+          return false;
+        }
+      }
+      errorEl.textContent = '';
+      errorEl.style.display = 'none';
+      input.classList.remove('input-invalid');
+      confirmBtn.disabled = false;
+      confirmBtn.style.opacity = '1';
+      confirmBtn.style.cursor = 'pointer';
+      return true;
+    };
+
     input.focus();
     input.select();
+    checkValidity(input.value.trim());
+
+    input.oninput = () => {
+      checkValidity(input.value.trim());
+    };
 
     function cleanup(value) {
       overlay.classList.add('modal-fade-out');
@@ -116,14 +152,20 @@ export function promptDialog({ title = 'Input Required', message = '', defaultVa
       }, 150);
     }
 
-    confirmBtn.onclick = () => cleanup(input.value.trim());
+    const handleConfirm = () => {
+      const val = input.value.trim();
+      if (!checkValidity(val)) return;
+      cleanup(val);
+    };
+
+    confirmBtn.onclick = handleConfirm;
     cancelBtn.onclick = () => cleanup(null);
     closeBtn.onclick = () => cleanup(null);
 
     input.onkeydown = (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        cleanup(input.value.trim());
+        handleConfirm();
       } else if (e.key === 'Escape') {
         cleanup(null);
       }

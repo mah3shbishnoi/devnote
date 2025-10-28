@@ -9,6 +9,7 @@ import { FileTreeComponent } from './tree.js';
 import { promptDialog } from '../dialogs/dialogs.js';
 import { selectAndReadMarkdownFile } from '../../utils/import.js';
 import { smartExport } from '../../utils/export.js';
+import { getUniqueDocTitle, getUniqueFolderName, validateDocTitle, validateFolderName } from '../../utils/naming.js';
 
 export class SidebarComponent {
   constructor(element) {
@@ -70,10 +71,12 @@ export class SidebarComponent {
 
   bindControls() {
     this.element.querySelector('#sidebar-new-doc-btn').onclick = async () => {
+      const defaultName = getUniqueDocTitle('untitled.md', null, state.documents);
       const title = await promptDialog({
         title: 'New Document',
-        defaultValue: 'untitled.md',
-        confirmText: 'Create'
+        defaultValue: defaultName,
+        confirmText: 'Create',
+        validate: (val) => validateDocTitle(val, null, state.documents)
       });
       if (title) {
         state.createNewDocument({ title });
@@ -81,10 +84,12 @@ export class SidebarComponent {
     };
 
     this.element.querySelector('#sidebar-new-folder-btn').onclick = async () => {
+      const defaultName = getUniqueFolderName('New Folder', null, state.folders);
       const name = await promptDialog({
         title: 'New Folder',
-        defaultValue: 'New Folder',
-        confirmText: 'Create Folder'
+        defaultValue: defaultName,
+        confirmText: 'Create Folder',
+        validate: (val) => validateFolderName(val, null, state.folders)
       });
       if (name) {
         state.createNewFolder({ name });

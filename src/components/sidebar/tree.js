@@ -7,6 +7,7 @@ import { EVENTS } from '../../core/events.js';
 import { getIcon } from '../../utils/icons.js';
 import { showDocumentContextMenu, showFolderContextMenu } from './context-menu.js';
 import { promptDialog } from '../dialogs/dialogs.js';
+import { getUniqueDocTitle, validateDocTitle } from '../../utils/naming.js';
 
 export class FileTreeComponent {
   constructor(container) {
@@ -145,10 +146,12 @@ export class FileTreeComponent {
     const addDocBtn = row.querySelector('.action-add-doc');
     addDocBtn.onclick = async (e) => {
       e.stopPropagation();
+      const defaultName = getUniqueDocTitle('untitled.md', folder.id, state.documents);
       const title = await promptDialog({
         title: 'New Document',
-        defaultValue: 'untitled.md',
-        confirmText: 'Create'
+        defaultValue: defaultName,
+        confirmText: 'Create',
+        validate: (val) => validateDocTitle(val, folder.id, state.documents)
       });
       if (title) {
         state.createNewDocument({ title, folderId: folder.id });

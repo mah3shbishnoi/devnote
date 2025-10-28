@@ -96,6 +96,22 @@
   height: 32px;
 }
 
+.modal-input-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  margin-top: var(--space-xs);
+  line-height: 1.4;
+}
+
+.input-invalid {
+  border-color: var(--color-danger) !important;
+}
+
+.input-invalid:focus {
+  box-shadow: 0 0 0 2px var(--color-danger-subtle) !important;
+}
+
+
 .modal-footer {
   display: flex;
   align-items: center;

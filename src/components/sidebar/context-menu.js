@@ -6,6 +6,7 @@ import { state } from '../../core/state.js';
 import { getIcon } from '../../utils/icons.js';
 import { exportDocument, exportDocumentsAsZip } from '../../utils/export.js';
 import { promptDialog, confirmDialog, moveDocDialog } from '../dialogs/dialogs.js';
+import { getUniqueDocTitle, validateDocTitle, validateFolderName } from '../../utils/naming.js';
 
 let activeMenu = null;
 
@@ -76,7 +77,8 @@ export function showDocumentContextMenu(docId, x, y) {
         const newName = await promptDialog({
           title: 'Rename Document',
           defaultValue: doc.title,
-          confirmText: 'Rename'
+          confirmText: 'Rename',
+          validate: (val) => validateDocTitle(val, doc.folderId, state.documents, docId)
         });
         if (newName && newName !== doc.title) {
           state.renameDocument(docId, newName);
@@ -145,10 +147,12 @@ export function showFolderContextMenu(folderId, x, y) {
       closeContextMenu();
 
       if (action === 'new-doc') {
+        const defaultName = getUniqueDocTitle('untitled.md', folderId, state.documents);
         const title = await promptDialog({
           title: 'New Document',
-          defaultValue: 'untitled.md',
-          confirmText: 'Create'
+          defaultValue: defaultName,
+          confirmText: 'Create',
+          validate: (val) => validateDocTitle(val, folderId, state.documents)
         });
         if (title) {
           state.createNewDocument({ title, folderId });
@@ -157,7 +161,8 @@ export function showFolderContextMenu(folderId, x, y) {
         const newName = await promptDialog({
           title: 'Rename Folder',
           defaultValue: folder.name,
-          confirmText: 'Rename'
+          confirmText: 'Rename',
+          validate: (val) => validateFolderName(val, folder.parentId, state.folders, folderId)
         });
         if (newName && newName !== folder.name) {
           state.renameFolder(folderId, newName);
