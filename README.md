@@ -105,29 +105,6 @@ src/
 
 4. Open `http://localhost:5173` in your browser.
 
-### Building for Production
-
-To create an optimized production build:
-
-```bash
-npm run build
-```
-
-Preview the production build locally:
-
-```bash
-npm run preview
-```
-
----
-
-## Design Decisions
-
-1. **Restraint over Decoration:** Unlike generic SaaS templates, DevNote intentionally avoids purple/blue gradient backgrounds, glassmorphism, floating blur blobs, or oversized rounded corners. Borders (`1px solid var(--border-default)`) and compact typography establish structural hierarchy.
-2. **Dense Information Hierarchy:** Workspace controls use compact heights (28px button heights, 44px navbar, 36px tabs, 26px statusbar) to maximize document screen real estate.
-3. **True Local-First State:** Rather than ephemeral state or mock data, every operation targets a native browser IndexedDB database (`devnote_db`) with transactional safety.
-4. **Desktop-First Mindset:** Technical documentation workflows demand keyboard navigation and wide split-pane layouts. Mobile screens receive a clean fallback to prevent broken interfaces while keeping documentation readable.
-
 ---
 
 ## Keyboard Shortcuts
