@@ -49,7 +49,6 @@ export class SearchModalComponent {
         <div class="palette-input-wrapper">
           <span class="palette-search-icon">${getIcon('search')}</span>
           <input type="text" class="palette-input" placeholder="Search document titles or contents..." autocomplete="off" />
-          <span class="palette-badge">ESC to close</span>
         </div>
         <div class="palette-results-list" id="search-results"></div>
         <div class="palette-footer">

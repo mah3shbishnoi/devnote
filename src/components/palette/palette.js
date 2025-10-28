@@ -260,7 +260,6 @@ export class CommandPaletteComponent {
         <div class="palette-input-wrapper">
           <span class="palette-search-icon">${getIcon('search')}</span>
           <input type="text" class="palette-input" placeholder="Type a command or search..." autocomplete="off" />
-          <span class="palette-badge">ESC to close</span>
         </div>
         <div class="palette-results-list" id="palette-results"></div>
         <div class="palette-footer">
