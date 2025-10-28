@@ -5,6 +5,7 @@
 import { state } from '../../core/state.js';
 import { EVENTS } from '../../core/events.js';
 import { getIcon } from '../../utils/icons.js';
+import { getAltKeyLabel } from '../../core/shortcuts.js';
 
 export class TabsComponent {
   constructor(element) {
@@ -74,8 +75,9 @@ export class TabsComponent {
     }
 
     const newTabBtn = document.createElement('button');
+    const altMod = getAltKeyLabel();
     newTabBtn.className = 'tab-new-btn';
-    newTabBtn.title = 'New Document (⌘N)';
+    newTabBtn.title = `New Document (${altMod}+N)`;
     newTabBtn.innerHTML = getIcon('plus');
     newTabBtn.onclick = () => {
       state.createNewDocument({ title: 'untitled.md' });

@@ -113,7 +113,7 @@ src/
 | :--- | :--- |
 | `⌘K` / `Ctrl+K` | Open Command Palette |
 | `⌘P` / `Ctrl+P` | Quick Document & Content Search |
-| `⌘N` / `Ctrl+N` | Create New Document |
+| `⌥N` / `Alt+N` | Create New Document |
 | `⌘\` / `Ctrl+\` | Toggle Sidebar Visibility |
 | `?` | Show Keyboard Shortcuts Cheat Sheet |
 | `⌘B` / `Ctrl+B` | Bold Selection (`**text**`) |

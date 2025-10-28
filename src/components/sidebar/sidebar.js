@@ -10,6 +10,7 @@ import { promptDialog } from '../dialogs/dialogs.js';
 import { selectAndReadMarkdownFile } from '../../utils/import.js';
 import { smartExport } from '../../utils/export.js';
 import { getUniqueDocTitle, getUniqueFolderName, validateDocTitle, validateFolderName } from '../../utils/naming.js';
+import { getAltKeyLabel } from '../../core/shortcuts.js';
 
 export class SidebarComponent {
   constructor(element) {
@@ -19,6 +20,7 @@ export class SidebarComponent {
   }
 
   init() {
+    const altMod = getAltKeyLabel();
     this.element.innerHTML = `
       <div class="sidebar-header">
         <div class="sidebar-title-row">
@@ -26,7 +28,7 @@ export class SidebarComponent {
             <span class="sidebar-workspace-label">WORKSPACE</span>
           </div>
           <div class="sidebar-header-actions">
-            <button class="btn-icon btn-icon-xs" id="sidebar-new-doc-btn" title="New Document (⌘N)">
+            <button class="btn-icon btn-icon-xs" id="sidebar-new-doc-btn" title="New Document (${altMod}+N)">
               ${getIcon('filePlus')}
             </button>
             <button class="btn-icon btn-icon-xs" id="sidebar-new-folder-btn" title="New Folder">

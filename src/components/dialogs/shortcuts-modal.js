@@ -5,7 +5,7 @@
 import { state } from '../../core/state.js';
 import { EVENTS } from '../../core/events.js';
 import { getIcon } from '../../utils/icons.js';
-import { getModKeyLabel } from '../../core/shortcuts.js';
+import { getModKeyLabel, getAltKeyLabel } from '../../core/shortcuts.js';
 
 export function initShortcutsModal() {
   state.on(EVENTS.OPEN_SHORTCUTS_MODAL, () => {
@@ -16,6 +16,7 @@ export function initShortcutsModal() {
 export function openShortcutsModal() {
   let overlay = document.getElementById('shortcuts-modal-overlay');
   const mod = getModKeyLabel();
+  const altMod = getAltKeyLabel();
 
   if (!overlay) {
     overlay = document.createElement('div');
@@ -61,7 +62,7 @@ export function openShortcutsModal() {
               <h4 class="shortcut-group-title">Document Management</h4>
               <div class="shortcut-row">
                 <span class="shortcut-label">New Document</span>
-                <div class="shortcut-keys"><kbd>${mod}</kbd><kbd>N</kbd></div>
+                <div class="shortcut-keys"><kbd>${altMod}</kbd><kbd>N</kbd></div>
               </div>
             </div>
 

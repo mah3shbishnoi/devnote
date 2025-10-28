@@ -5,7 +5,7 @@
 import { state } from '../../core/state.js';
 import { EVENTS } from '../../core/events.js';
 import { getIcon } from '../../utils/icons.js';
-import { getModKeyLabel } from '../../core/shortcuts.js';
+import { getModKeyLabel, getAltKeyLabel } from '../../core/shortcuts.js';
 import { exportDocument, exportDocumentsAsZip, smartExport } from '../../utils/export.js';
 import { selectAndReadMarkdownFile } from '../../utils/import.js';
 import { promptDialog, confirmDialog, moveDocDialog } from '../dialogs/dialogs.js';
@@ -28,6 +28,7 @@ export class CommandPaletteComponent {
 
   getCommands() {
     const mod = getModKeyLabel();
+    const altMod = getAltKeyLabel();
     const activeDoc = state.getActiveDoc();
 
     return [
@@ -36,7 +37,7 @@ export class CommandPaletteComponent {
         title: 'New Document',
         category: 'Document',
         icon: 'filePlus',
-        shortcut: `${mod}+N`,
+        shortcut: `${altMod}+N`,
         action: async () => {
           const defaultName = getUniqueDocTitle('untitled.md', null, state.documents);
           const title = await promptDialog({

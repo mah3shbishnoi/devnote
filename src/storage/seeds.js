@@ -56,7 +56,7 @@ DevNote allows you to write, organize, search, and preview Markdown documentatio
 | :--- | :--- |
 | \`Cmd / Ctrl + K\` | Open Command Palette |
 | \`Cmd / Ctrl + P\` | Quick File & Content Search |
-| \`Cmd / Ctrl + N\` | Create New Document |
+| \`Alt / ⌥ + N\` | Create New Document |
 | \`Cmd / Ctrl + B\` | Toggle Bold Syntax |
 | \`Cmd / Ctrl + I\` | Toggle Italic Syntax |
 | \`Esc\` | Dismiss Active Modal / Overlay |

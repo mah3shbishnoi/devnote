@@ -14,6 +14,10 @@ export function getModKeyLabel() {
   return isMac() ? '⌘' : 'Ctrl';
 }
 
+export function getAltKeyLabel() {
+  return isMac() ? '⌥' : 'Alt';
+}
+
 export function initKeyboardShortcuts() {
   window.addEventListener('keydown', (e) => {
     const isMeta = isMac() ? e.metaKey : e.ctrlKey;
@@ -73,8 +77,8 @@ export function initKeyboardShortcuts() {
       return;
     }
 
-    // Cmd/Ctrl + N -> New Document
-    if (isMeta && e.key.toLowerCase() === 'n' && !e.shiftKey) {
+    // Alt + N (Option + N on Mac) -> New Document
+    if (e.altKey && e.key.toLowerCase() === 'n' && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
       e.preventDefault();
       state.createNewDocument({ title: 'untitled.md' });
       return;

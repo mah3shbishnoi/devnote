@@ -56,7 +56,7 @@ export async function openDB() {
 }
 
 const SEED_VERSION_KEY = 'devnote_seeds_version';
-const CURRENT_SEED_VERSION = '2.1';
+const CURRENT_SEED_VERSION = '2.2';
 
 async function seedInitialDataIfEmpty(db) {
   const count = await new Promise((resolve) => {
