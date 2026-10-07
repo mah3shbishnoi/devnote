@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DevNote is a browser-native technical documentation workspace for developers. Write, organize, edit, preview, and search Markdown documentation locally." />
+  <meta name="theme-color" content="#0d1117" />
+  <title>DevNote — Professional Developer Documentation Workspace</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232ea043' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='16 18 22 12 16 6'></polyline><polyline points='8 6 2 12 8 18'></polyline></svg>" />
+  <script type="module" crossorigin src="./assets/index-BB23bFas.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-B5ko0rbx.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Top Navigation Bar -->
+    <header id="app-navbar" class="app-navbar" role="banner"></header>
+
+    <!-- Main Workspace Area -->
+    <div class="app-main">
+      <!-- File Explorer Sidebar -->
+      <aside id="app-sidebar" class="app-sidebar" role="navigation" aria-label="File Explorer"></aside>
+
+      <!-- Document Workspace -->
+      <main class="app-workspace" role="main">
+        <!-- Tabs Strip -->
+        <nav id="workspace-tabs" class="workspace-tabs" aria-label="Open Documents"></nav>
+
+        <!-- Editor & Preview Split Workspace -->
+        <div id="workspace-panes" class="workspace-panes" data-view="split">
+          <section id="pane-editor" class="pane-editor" aria-label="Markdown Editor"></section>
+          <section id="pane-preview" class="pane-preview" aria-label="Documentation Preview"></section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bottom Status Bar -->
+    <footer id="app-statusbar" class="app-statusbar" role="contentinfo"></footer>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Dynamic Modal Root -->
+  <div id="modal-root"></div>
+
+</body>
+</html>
